@@ -13,7 +13,7 @@ export class CartComponent implements OnInit{
 
   public cart: Cart[] | undefined
   dataSource: MatTableDataSource<any> | undefined;
-  displayedColumns: string[] = ['image', 'title', 'quantity', 'price', 'actions'];
+  displayedColumns: string[] = ['image', 'title', 'quantity', 'price', 'total','actions'];
 
   public priceSummary: PriceSummary = {
     price: 0,
@@ -26,7 +26,7 @@ export class CartComponent implements OnInit{
   constructor(private router: Router, private shopService: ShopService){}
 
   ngOnInit(): void {
-    // this.loadCardDetails()
+    
     this.shopService.getCart().subscribe((res)=>{
       console.log(res);
       
@@ -38,6 +38,7 @@ export class CartComponent implements OnInit{
           price+= +item.price * +item.quantity 
         }
       })
+      
       this.priceSummary.total = price
       if(!this.cart?.length){
         // this.router.navigate(['/'])

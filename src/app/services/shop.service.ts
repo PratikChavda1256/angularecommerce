@@ -66,7 +66,9 @@ export class ShopService {
 
   addToCart(productData: Product){
     let Headers = this.getHeaders()
-    return this.http.post<Product>(`${this.url}carts`, {productId: productData._id, quantity: productData.quantity,
+    console.log("Service checkup", productData.quantity);
+    
+    return this.http.post<Product>(`${this.url}carts`, {productId: productData._id, selectedQuentity: productData.quantity,
     image: productData.image, title: productData.title, price: productData.price}, { headers: Headers })
     .pipe(catchError(this.errorHandler))
   }
@@ -89,8 +91,12 @@ export class ShopService {
   }
 
   emptyCart(){
-    let Headers = this.getHeaders()
-    return this.http.put<Cart>(`${this.url}carts/empty-cart`, null, { headers: Headers })
+    let userStore = localStorage.getItem('customer')
+    let accessToken = userStore && JSON.parse(userStore).accessToken
+    let httpHeaders: HttpHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${accessToken}`
+    })
+    return this.http.delete<Cart>(`${this.url}carts/delete-cart`, { headers: httpHeaders })
     .pipe(catchError(this.errorHandler))
   }
 

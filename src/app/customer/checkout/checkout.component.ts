@@ -55,7 +55,7 @@ export class CheckoutComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result) { 
           this.cart?.forEach((item) => {
-            this.shopService.removeItemFromCart(item.productId).subscribe((res) => {
+            this.shopService.emptyCart().subscribe((res) => {
               // console.log(res);
               this.shopService.getCartCount()
             })

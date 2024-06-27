@@ -74,15 +74,40 @@ export class ProductDetailsComponent implements OnInit{
     }
   }
 
+  // addToCart(){
+  //   var islogin = localStorage.getItem('customer');
+  //   if(!islogin){
+  //     this.router.navigate(['/customer-signup'])
+  //     return;
+  //   }
+
+  //   if(this.productDetails){
+  //     this.productDetails.quantity = this.productQuantity
+  //     if(!localStorage.getItem('customer')){
+  //       this.shopService.addToLocal(this.productDetails)
+  //       this.removeCartLink = true 
+  //     }else{
+  //       this.productDetails && this.shopService.addToCart(this.productDetails).subscribe((res)=>{
+  //         if(res){
+  //           // console.log(res);
+  //           this.shopService.getCartCount()
+  //           this.removeCartLink = true 
+  //         }
+  //       })
+  //     }
+  //   }
+  // }
   addToCart(){
     var islogin = localStorage.getItem('customer');
     if(!islogin){
-      this.router.navigate(['/customer-signup'])
+      this.router.navigate(['/customer-signin'])
       return;
     }
 
     if(this.productDetails){
+      
       this.productDetails.quantity = this.productQuantity
+      console.log(this.productDetails.quantity,"This is current product quantity");
       if(!localStorage.getItem('customer')){
         this.shopService.addToLocal(this.productDetails)
         this.removeCartLink = true 
